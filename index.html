@@ -6,17 +6,147 @@
 <meta name="theme-color" content="#111827">
 <title>NAVAA Exchange</title>
 <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+  
 <style>
+  
 :root{color-scheme:dark;--bg:#0b1020;--panel:#131b2f;--panel2:#18233a;--line:#293650;--text:#eef3ff;--muted:#9eacc7;--accent:#a78bfa;--accent2:#7c3aed;--green:#34d399;--red:#fb7185}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 10% -10%,#29204c 0%,transparent 65%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
 main{max-width:1040px;margin:auto;padding:24px 16px 56px}.top{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(135deg,#c4b5fd,#6d28d9);display:grid;place-items:center;font-weight:900;color:#120c27;font-size:20px}.muted{color:var(--muted)}h1{font-size:24px;margin:0}h2{font-size:17px;margin:0 0 14px}.small{font-size:12px}.pill{border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--muted);font-size:12px}.btn{border:0;border-radius:12px;padding:12px 15px;background:var(--accent);color:#170d2e;font-weight:800;cursor:pointer;font-size:14px}.btn:hover{filter:brightness(1.08)}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.danger{background:#4c1d2d;color:#fecdd3}.btn:disabled{opacity:.45;cursor:not-allowed}.layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr);gap:16px}.card{background:linear-gradient(180deg,rgba(24,35,58,.96),rgba(19,27,47,.98));border:1px solid var(--line);border-radius:20px;padding:20px;min-width:0}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}.tab{padding:11px;border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}.tab.active{background:#302456;color:#e9ddff;border-color:#7c3aed}.field{display:block;margin:14px 0 6px;color:var(--muted);font-size:13px}.inputwrap{display:flex;gap:8px;align-items:center;background:#0d1425;border:1px solid var(--line);border-radius:13px;padding:5px 12px}.inputwrap input{background:transparent;border:0;outline:0;color:var(--text);font-size:19px;width:100%;min-width:0;padding:10px 0}.token{font-weight:800;color:#ddd6fe}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.quote{background:#0d1425;border:1px solid var(--line);border-radius:14px;padding:13px;margin:14px 0}.quote-line{display:flex;justify-content:space-between;gap:12px;margin:6px 0;font-size:13px}.full{width:100%;margin-top:12px}.notice{padding:11px 13px;border-radius:12px;background:#2b2416;color:#fde68a;font-size:13px;margin:12px 0}.status{margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}.good{color:var(--green)}.bad{color:var(--red)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#0d1425;border:1px solid var(--line);border-radius:13px;padding:12px;min-width:0}.stat .v{font-size:18px;font-weight:800;overflow-wrap:anywhere}.admin{margin-top:16px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.admin-grid input{width:100%;background:#0d1425;border:1px solid var(--line);border-radius:10px;padding:11px;color:var(--text);margin-top:5px}.admin-grid label{font-size:12px;color:var(--muted)}.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.hidden{display:none!important}a{color:#c4b5fd}.foot{margin-top:20px;font-size:12px;color:var(--muted)}.sep{border:0;border-top:1px solid var(--line);margin:18px 0}@media(max-width:760px){.layout{grid-template-columns:1fr}.card{padding:16px}.admin-grid{grid-template-columns:1fr}.top{align-items:flex-start}h1{font-size:21px}}
+
+
+/* NAVAA responsive header ( Modification ) */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.brand {
+  min-width: 0;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.nav-tab {
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.nav-tab:hover {
+  background: var(--panel2);
+  color: var(--text);
+}
+
+.nav-tab.active {
+  color: var(--text);
+  background: #302456;
+  border-color: var(--accent2);
+}
+
+.top-actions {
+  justify-self: end;
+}
+
+@media (max-width: 650px) {
+  .top {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+
+  .main-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .nav-tab {
+    flex: 1;
+    padding: 10px 12px;
+  }
+
+  .top-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .brand .muted {
+    display: none;
+  }
+
+  .logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+}
+/*------------MODIFICATION : HEADER 1 --------------*/
+
+
+
+
+
+
+
 </style>
 </head>
-<body><main>
+<body>
+  <main>
+<!-----MMODIFY : Header ------->
+<header class="top">
+  <div class="brand">
+    <div class="logo">N</div>
+    <div>
+      <h1>NAVAA Exchange</h1>
+      <div class="muted small">Fixed-rate trading on Polygon PoS</div>
+    </div>
+  </div>
+
+  <nav class="main-nav" aria-label="Main navigation">
+    <button
+      class="nav-tab active"
+      id="pageExchangeTab"
+      type="button"
+    >Exchange</button>
+
+    <button
+      class="nav-tab"
+      id="pageEarnTab"
+      type="button"
+    >Earn</button>
+  </nav>
+
+  <div class="top-actions row">
+    <span class="pill" id="networkPill">Polygon · read-only</span>
+    <button class="btn" id="connectBtn">Connect wallet</button>
+  </div>
+</header>
+    <!--- Opening Tag modify ----->
+    
+    <div id="exchangePage">
+  
+  <!------------- Stop header: before -------------
 <header class="top">
   <div class="brand"><div class="logo">N</div><div><h1>NAVAA Exchange</h1><div class="muted small">Fixed-rate trading on Polygon PoS</div></div></div>
   <div class="row"><span class="pill" id="networkPill">Polygon · read-only</span><button class="btn" id="connectBtn">Connect wallet</button></div>
 </header>
+  ---->
+  
 <div class="notice">Use only Polygon Mainnet (chain ID 137). Always verify the contract addresses. Quotes are estimates and can change before confirmation.</div>
 <div class="layout">
 <section class="card">
@@ -80,6 +210,18 @@ main{max-width:1040px;margin:auto;padding:24px 16px 56px}.top{display:flex;align
   <div class="admin-actions"><a id="exchangeScan" target="_blank" rel="noreferrer">View exchange on PolygonScan</a><a id="tokenScan" target="_blank" rel="noreferrer">View NAVAA token on PolygonScan</a></div>
 </section>
 <div class="foot">Never share your seed phrase or private key. Review every transaction in your wallet. This interface is provided as a starter project, not an audit or guarantee of contract safety.</div>
+
+      <!---Modyfy single exchange wrapper closing tag div -->
+      </div>
+    
+    <!------Earn page Adding ------->
+    <section id="earnPage" class="card hidden" style="margin-top:16px; text-align:center; padding:64px 20px;">
+      <h2>Earn</h2>
+      <p class="muted">Coming Soon</p>
+    </section>
+    <!------------------------------->
+    
+    
 </main>
 <script>
 (() => {
@@ -189,6 +331,26 @@ async function tradeSell(){
 }
 async function adminTx(label,fn){try{if(!exWrite)throw Error('Owner wallet connect karein.');if(!isOwner)throw Error('Connected wallet owner nahi hai.');status('adminStatus',label+' transaction wallet mein review karein…');const tx=await fn();status('adminStatus','Pending: '+tx.hash);await tx.wait();status('adminStatus',label+' successful.','good');await refreshInfo();}catch(e){status('adminStatus',label+' failed: '+prettyError(e),'bad');}}
 $('connectBtn').onclick=connect;$('buyBtn').onclick=tradeBuy;$('sellBtn').onclick=tradeSell;$('approveBtn').onclick=approveSell;
+  
+// Modification Exchange and Earn Tab
+  
+$('pageExchangeTab').onclick = () => {
+  $('exchangePage').classList.remove('hidden');
+  $('earnPage').classList.add('hidden');
+
+  $('pageExchangeTab').classList.add('active');
+  $('pageEarnTab').classList.remove('active');
+};
+
+$('pageEarnTab').onclick = () => {
+  $('exchangePage').classList.add('hidden');
+  $('earnPage').classList.remove('hidden');
+
+  $('pageEarnTab').classList.add('active');
+  $('pageExchangeTab').classList.remove('active');
+};
+//-----------------------------------------
+  
 $('buyTab').onclick=()=>{$('buyPanel').classList.remove('hidden');$('sellPanel').classList.add('hidden');$('buyTab').classList.add('active');$('sellTab').classList.remove('active');};
 $('sellTab').onclick=()=>{$('sellPanel').classList.remove('hidden');$('buyPanel').classList.add('hidden');$('sellTab').classList.add('active');$('buyTab').classList.remove('active');updateQuotes();};
 ['buyAmount','sellAmount','slippage','slippage2'].forEach(id=>$(id).addEventListener('input',()=>{clearTimeout(window.quoteTimer);window.quoteTimer=setTimeout(updateQuotes,250);}));
