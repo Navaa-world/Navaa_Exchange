@@ -334,7 +334,7 @@ async function refreshInfo(){
   if(tokenAddr.toLowerCase()!==TOKEN.toLowerCase())throw Error('Warning: Exchange ka configured NAVAA token address expected token se match nahi karta!');
   isOwner=!!account&&owner.toLowerCase()===account.toLowerCase();
   $('adminPanel').classList.toggle('hidden',!isOwner);
-  setNetwork(account?'Polygon · wallet connected':'Polygon · read-only');
+  setNetwork(account?'Connected':'Polygon · read-only');
   await updateQuotes();
  }catch(e){status('tradeStatus','Contract read failed: '+prettyError(e),'bad');}
 }
